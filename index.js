@@ -39,10 +39,21 @@ function readResult (result) {
       .then(result => {
         let data = []
         for (let value in result) data.push(result[value].dataValues.userId)
-        bot.multicast(data, {
-          type: 'text',
-          text: '陳姿妤你在ㄇ'
-        })
+        rp(apiOpt)
+          .then(result => {
+            let reply = readResult(result)
+            let text = reply.County + reply.SiteName +
+            '\n\nPM2.5指數：' + reply['PM2.5_AVG'] +
+              '\n狀態：' + reply.Status
+            bot.multicast(data, {
+              type: 'text',
+              text: text
+            })
+          }).catch(() => {
+            bot.multicast(data, {
+              type: 'text',
+              text: '無法取得空氣品質資訊'
+          })
       })
   })
 }())
