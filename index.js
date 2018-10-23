@@ -18,13 +18,13 @@ const app = express()
 
 const linebotParser = bot.parser()
 
-function readResult(result) {
+function readResult (result) {
   let data
-  for (i in repos) {
-      if (repos[i].SiteName === SITE_NAME) {
-          data = repos[i];
-          break;
-      }
+  for (let i in result) {
+    if (result[i].SiteName === SITE_NAME) {
+      data = result[i]
+      break
+    }
   }
   return data
 }
