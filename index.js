@@ -53,6 +53,7 @@ function readResult (result) {
             bot.multicast(data, {
               type: 'text',
               text: '無法取得空氣品質資訊'
+            })
           })
       })
   })
