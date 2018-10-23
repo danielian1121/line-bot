@@ -2,6 +2,7 @@ const linebot = require('linebot')
 const express = require('express')
 const rp = require('request-promise')
 const lineUser = require('./database/connect.js').lineUser
+const schedule = require('node-schedule')
 
 const SITE_NAME = '臺南'
 const apiOpt = {
@@ -29,6 +30,17 @@ function readResult (result) {
   }
   return data
 }
+
+(function scheduleRecurrenceRule () {
+  let rule = new schedule.RecurrenceRule()
+  rule.second = 0
+  schedule.scheduleJob(rule, () => {
+    bot.push('U840a5350c4b4fdf493d98f5c35d95ff5', {
+      type: 'text',
+      text: 'Hello world'
+    })
+  })
+}())
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
