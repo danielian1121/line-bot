@@ -39,14 +39,10 @@ app.post('/webhook', linebotParser)
 bot.on('follow', event => {
   lineUser.findOrCreate({ where: { userId: `${event.source.userId}` } })
     .then(result => {
-      event.reply(`${result[0].dataValues.userId}`)
     })
 })
 
 bot.on('message', event => {
-  lineUser.findOrCreate({ where: { userId: `${event.source.userId}` } })
-    .then(result => {
-    })
   switch (event.message.type) {
     case 'text':
       switch (event.message.text) {
