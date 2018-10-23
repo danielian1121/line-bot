@@ -45,6 +45,8 @@ bot.on('follow', event => {
 
 bot.on('message', event => {
   lineUser.findOrCreate({ where: `${event.source.userId}` })
+    .then(result => {
+    })
   switch (event.message.type) {
     case 'text':
       switch (event.message.text) {
