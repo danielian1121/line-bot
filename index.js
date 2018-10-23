@@ -1,7 +1,7 @@
 const linebot = require('linebot')
 const express = require('express')
 const rp = require('request-promise')
-const lineUser = require('./database/config.js').lineUser
+const lineUser = require('./database/connect.js').lineUser
 
 const SITE_NAME = '臺南'
 const apiOpt = {
