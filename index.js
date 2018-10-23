@@ -37,14 +37,14 @@ app.get('/', (req, res) => {
 app.post('/webhook', linebotParser)
 
 bot.on('follow', event => {
-  lineUser.findOrCreate({ where: `${event.source.userId}` })
+  lineUser.findOrCreate({ where: { userId: `${event.source.userId}` } })
     .then(result => {
       event.reply(`${result[0].dataValues.userId}`)
     })
 })
 
 bot.on('message', event => {
-  lineUser.findOrCreate({ where: `${event.source.userId}` })
+  lineUser.findOrCreate({ where: { userId: `${event.source.userId}` } })
     .then(result => {
     })
   switch (event.message.type) {
