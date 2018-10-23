@@ -35,10 +35,15 @@ function readResult (result) {
   let rule = new schedule.RecurrenceRule()
   rule.second = 0
   schedule.scheduleJob(rule, () => {
-    bot.push('U840a5350c4b4fdf493d98f5c35d95ff5', {
-      type: 'text',
-      text: 'Hello world'
-    })
+    lineUser.findAll({ attributes: ['userId'] })
+      .then(result => {
+        let data = []
+        for (let value in result) data.push(result[value].dataValues.userId)
+        bot.multicast(data, {
+          type: 'text',
+          text: '陳姿妤你在ㄇ'
+        })
+      })
   })
 }())
 
