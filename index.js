@@ -1,6 +1,7 @@
 const linebot = require('linebot')
 const express = require('express')
 const rp = require('request-promise')
+const lineUser = require('./database/config.js')
 
 const SITE_NAME = '臺南'
 const apiOpt = {
@@ -35,7 +36,15 @@ app.get('/', (req, res) => {
 
 app.post('/webhook', linebotParser)
 
+bot.on('follow', event => {
+  lineUser.findOrCreate({ where: `${event.source.userId}` })
+    .then(result => {
+      event.reply(`${result[0].dataValues.userId}`)
+    })
+})
+
 bot.on('message', event => {
+  lineUser.findOrCreate({ where: `${event.source.userId}` })
   switch (event.message.type) {
     case 'text':
       switch (event.message.text) {
