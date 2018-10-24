@@ -97,7 +97,7 @@ bot.on('message', event => {
           rp(apiNews)
             .then(result => {
               let number = Math.floor((Math.random() * result.totalResults) + 1)
-              let data = result.article[number].url
+              let data = result.articles[number].url
               event.reply(data)
             })
           break
