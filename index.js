@@ -33,8 +33,7 @@ function readResult (result) {
 
 (function scheduleRecurrenceRule () {
   let rule = new schedule.RecurrenceRule()
-  rule.hour = 0
-  rule.minute = 0
+  rule.minute = 10
   rule.second = 0
   schedule.scheduleJob(rule, () => {
     lineUser.findAll({ attributes: ['userId'] })
