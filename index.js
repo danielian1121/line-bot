@@ -10,7 +10,7 @@ const apiOpt = {
   json: true
 }
 const apiNews = {
-  url = 'https://newsapi.org/v2/top-headlines?country=tw&apiKey=dce93a0065e54403b42314f5c18ea8c8',
+  url: 'https://newsapi.org/v2/top-headlines?country=tw&apiKey=dce93a0065e54403b42314f5c18ea8c8',
   json: true
 }
 
