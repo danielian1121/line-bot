@@ -37,10 +37,11 @@ function readResult (result) {
 
 function readNews (result) {
   let data = []
+  let array = result.articles
   while (data.length < 3) {
     let number = Math.floor((Math.random() * result.totalResults) + 1)
-    data.push(result[number].url)
-    result.splice(number, 1)
+    data.push(array[number].url)
+    array.splice(number, 1)
   }
   return data
 }
@@ -108,7 +109,7 @@ bot.on('message', event => {
             .then(result => {
               /* let number = Math.floor((Math.random() * result.totalResults) + 1)
               let data = result.articles[number].url */
-              let data = readNews(result.articles)
+              let data = readNews(result)
               event.reply(data)
             })
           break
