@@ -54,20 +54,14 @@ function readNews (result) {
   schedule.scheduleJob(rule, () => {
     lineUser.findAll({ attributes: ['userId'] })
       .then(result => {
-        let data = []
-        for (let value in result) data.push(result[value].dataValues.userId)
+        let Id = []
+        for (let value in result) Id.push(result[value].dataValues.userId)
         rp(apiNews)
           .then(result => {
-            let reply = readResult(result.articles)
-            let text = reply.County + reply.SiteName +
-            '\n\nPM2.5指數：' + reply['PM2.5_AVG'] +
-              '\n狀態：' + reply.Status
-            bot.multicast(data, {
-              type: 'text',
-              text: text
-            })
+            let data = readNews(result)
+            bot.multicast(Id, data)
           }).catch(() => {
-            bot.multicast(data, {
+            bot.multicast(Id, {
               type: 'text',
               text: '無法取得空氣品質資訊'
             })
@@ -107,8 +101,6 @@ bot.on('message', event => {
         case '新聞':
           rp(apiNews)
             .then(result => {
-              /* let number = Math.floor((Math.random() * result.totalResults) + 1)
-              let data = result.articles[number].url */
               let data = readNews(result)
               event.reply(data)
             })
