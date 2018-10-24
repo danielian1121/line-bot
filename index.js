@@ -35,6 +35,16 @@ function readResult (result) {
   return data
 }
 
+function readNews (result) {
+  let data = []
+  while (data.length < 3) {
+    let number = Math.floor((Math.random() * result.totalResults) + 1)
+    data.push(result[number].url)
+    result.splice(number, 1)
+  }
+  return data
+}
+
 (function scheduleRecurrenceRule () {
   let rule = new schedule.RecurrenceRule()
   rule.hour = 0
@@ -45,9 +55,9 @@ function readResult (result) {
       .then(result => {
         let data = []
         for (let value in result) data.push(result[value].dataValues.userId)
-        rp(apiOpt)
+        rp(apiNews)
           .then(result => {
-            let reply = readResult(result)
+            let reply = readResult(result.articles)
             let text = reply.County + reply.SiteName +
             '\n\nPM2.5指數：' + reply['PM2.5_AVG'] +
               '\n狀態：' + reply.Status
@@ -96,8 +106,9 @@ bot.on('message', event => {
         case '新聞':
           rp(apiNews)
             .then(result => {
-              let number = Math.floor((Math.random() * result.totalResults) + 1)
-              let data = result.articles[number].url
+              /* let number = Math.floor((Math.random() * result.totalResults) + 1)
+              let data = result.articles[number].url */
+              let data = readNews(result.articles)
               event.reply(data)
             })
           break
