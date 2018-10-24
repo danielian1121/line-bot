@@ -9,6 +9,10 @@ const apiOpt = {
   url: 'http://opendata2.epa.gov.tw/AQI.json',
   json: true
 }
+const apiNews = {
+  url = 'https://newsapi.org/v2/top-headlines?country=tw&apiKey=dce93a0065e54403b42314f5c18ea8c8',
+  json: true
+}
 
 const bot = linebot({
   channelId: process.env.CHANNEL_ID,
@@ -87,6 +91,14 @@ bot.on('message', event => {
                   '\n狀態：' + data.Status)
             }).catch(() => {
               event.reply('無法取得空氣品質資料～')
+            })
+          break
+        case '新聞':
+          rp(apiNews)
+            .then(result => {
+              let number = Math.floor((Math.random() * result.totalResults) + 1)
+              let data = result.article[number].url
+              event.reply(data)
             })
           break
       }
