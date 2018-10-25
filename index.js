@@ -40,6 +40,7 @@ function readNews (result) {
   let array = result.articles
   while (data.length < 3) {
     let number = Math.floor((Math.random() * result.totalResults))
+    console.log(number)
     data.push(array[number].url)
     array.splice(number, 1)
   }
